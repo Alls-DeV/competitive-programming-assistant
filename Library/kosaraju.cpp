@@ -1,5 +1,5 @@
 struct Kosaraju {
-	vector<vi> adj, radj, cond_adj;
+	vector<vi> adj, radj;
 	vector<bool> vis;
 	vi comp, order;
 	int cc = 0;
@@ -28,24 +28,6 @@ struct Kosaraju {
 				dfs2(v);
 	}
 
-
-	void init_cond_adj()
-	{
-		vector<vi> complist(cc);
-		vi added(cc, -1);
-		cond_adj.resize(cc);
-
-		for(int i=0;i<ssize(adj);i++)
-			complist[comp[i]].push_back(i);
-		for(int i=0;i<cc;i++)
-			for(int from:complist[i])
-				for(int to:adj[from])
-					if(comp[to] != i && added[comp[to]]!=i) {
-						cond_adj[i].push_back(comp[to]);
-						added[comp[to]] = i;
-					}
-	}
-
 	Kosaraju(vector<vi>& g) {
 		adj = g;
 		init_radj();
@@ -60,6 +42,5 @@ struct Kosaraju {
 		for (int u : order)
 			if (!vis[u])
 				dfs2(u), ++cc;
-		init_cond_adj();
 	}
 };
