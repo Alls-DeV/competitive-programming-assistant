@@ -27,9 +27,10 @@ using vpll = vector<pll>;
 #define rFOR(i, a, b) for (int i = (a); i >= (b); --i)
 #define feach(i, x) for (auto& i : x)
  
-#define sz(x) (int)(x).size()
-#define all(x) x.begin(), x.end()
-#define pb push_back
+#define SZ(x) (int)(x).size()
+#define ALL(x) x.begin(), x.end()
+#define PB push_back
+#define MP make_pair
 #define make_unique(x) {sort(all(x)); x.erase(unique(all(x)), x.end());}
 #define uid(a, b) uniform_int_distribution<int>(a, b)(rng) 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
