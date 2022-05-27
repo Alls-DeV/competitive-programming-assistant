@@ -35,7 +35,8 @@ nnoremap <C-j> <C-e>
 nnoremap <C-k> <C-y>
 ":q with Delete
 nnoremap <Del> :q<CR>
-
+"after compile remove errormarker
+nnoremap \\ <C-w>w:q<CR>:RemoveErrorMarkers<CR>
 
 
 "Append template to new c++ files
@@ -54,6 +55,7 @@ noremap <F12> :!g++ -std=gnu++17 -o %:r %:r.cpp<CR>
 
 
 
+let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
 execute pathogen#infect()
 
 " plugin
