@@ -4,7 +4,7 @@ RED='\033[1;31m'
 PURPLE='\033[1;35m'
 NC='\033[0m' # no color
 
-if [ "$1" == "-h" ] ; then
+if [ "$1" == "h" ] ; then
     echo -e "${PURPLE}stress.sh  wrong  slow  generator  numTests${NC}"
 	echo ""
 	echo -e "${RED}REMOVE //testcase${NC}"
@@ -30,3 +30,5 @@ do
     fi
 done
 echo Passed $4 tests
+
+
