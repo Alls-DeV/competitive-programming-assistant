@@ -51,7 +51,7 @@ int32_t main() {
 	cin >> t;//testcase
     while (t--) {
         #ifdef ALE
-            cout << "\e[36m" << "------------------------------\n" << "\e[39m";
+            cout << "\e[31m" << "------------------------------\n" << "\e[39m";
         #endif
         solve();
     }
