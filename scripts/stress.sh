@@ -30,4 +30,3 @@ do
     fi
 done
 echo Passed $4 tests
-
