@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
+RED='\033[1;31m'
+PURPLE='\033[1;35m'
+NC='\033[0m' # no color
+
 if [ "$1" == "-h" ] ; then
-	echo "validate.sh  wrong  validator  generator  numTests"
+	echo -e "${PURPLE}validate.sh  wrong  validator  generator  numTests${NC}"
 	echo ""
-	echo "remove //testcase from generator and validator"
+	echo -e "${RED}REMOVE //testcase"
 	echo "validator should return "OK" or the string that explain the error"
-	echo "validator first take in input the generator input and next the program output"
+	echo -e "validator first take in input the generator input and next the program output${NC}"
     exit 0
 fi
 for ((testNum=0;testNum<$4;testNum++))
@@ -17,16 +21,14 @@ do
     result=$(cat res)
     if [ "${result:0:2}" != "OK" ];
     then
-        echo "Error found!"
-        echo "Input:"
+        echo -e "${RED}Error found!${NC}"
+        echo -e "${PURPLE}Input:${NC}"
         cat input
-        echo "Output:"
+        echo -e "${PURPLE}Output:${NC}"
         cat out
-        echo "Validator Result:"
+        echo -e "${PURPLE}Validator Result:${NC}"
         cat res 
         exit
     fi
 done
 echo Passed $4 tests
-
-
