@@ -51,7 +51,7 @@ autocmd filetype cpp inoremap <F8> <ESC> :w <bar> Make <CR>
 autocmd filetype cpp nnoremap <F9> :vertical terminal ++shell ++cols=60 ./%:r.exe<CR>
 autocmd filetype cpp nnoremap <F10> :!./%:r.exe<CR>
 "compile without .exe for stress test
-noremap <F12> :!g++ -std=gnu++17 -o %:r %:r.cpp<CR>
+noremap <F12> :w<CR>:!g++ -o %:r %:r.cpp<CR>
 
 
 
