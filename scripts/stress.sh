@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
+RED='\033[1;31m'
+PURPLE='\033[1;35m'
+NC='\033[0m' # no color
+
 if [ "$1" == "-h" ] ; then
-    echo "stress.sh  wrong  slow  generator  numTests"
+    echo -e "${PURPLE}stress.sh  wrong  slow  generator  numTests${NC}"
 	echo ""
-	echo "remove //testcase from generator"
+	echo -e "${RED}REMOVE //testcase${NC}"
     exit 0
 fi
 for ((testNum=0;testNum<$4;testNum++))
@@ -15,16 +19,15 @@ do
     H2=`md5sum outSlow`
     if !(cmp -s "outWrong" "outSlow")
     then
-        echo "Error found!"
-        echo "Input:"
+        echo "${RED}Error found!${NC}"
+        echo "${PURPLE}Input:${NC}"
         cat input
-        echo "Wrong Output:"
+        echo "${PURPLE}Wrong Output:${NC}"
         cat outWrong
-        echo "Slow Output:"
+        echo "${PURPLE}Slow Output:${NC}"
         cat outSlow
         exit
     fi
 done
 echo Passed $4 tests
-
 
