@@ -5,7 +5,7 @@ PURPLE='\033[1;35m'
 NC='\033[0m' # no color
 
 if [ "$1" == "h" ] ; then
-    echo -e "${PURPLE}stress.sh  wrong  slow  generator  numTests${NC}"
+    echo -e "${PURPLE}compare.sh  solution1  solution2  generator  numTests${NC}"
 	echo ""
 	echo -e "${RED}REMOVE //testcase${NC}"
     exit 0
@@ -19,16 +19,15 @@ do
     H2=`md5sum outSlow`
     if !(cmp -s "outWrong" "outSlow")
     then
-        echo "${RED}Error found!${NC}"
-        echo "${PURPLE}Input:${NC}"
+        echo -e "${RED}Error found!${NC}"
+        echo -e "${PURPLE}Input:${NC}"
         cat input
-        echo "${PURPLE}Wrong Output:${NC}"
+        echo -e "${PURPLE}$2 output:${NC}"
         cat outWrong
-        echo "${PURPLE}Slow Output:${NC}"
+        echo -e "${PURPLE}$3 output:${NC}"
         cat outSlow
         exit
     fi
 done
 echo Passed $4 tests
-
 
