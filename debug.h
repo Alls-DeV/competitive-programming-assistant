@@ -18,7 +18,9 @@ void __print(bool x) {cout << (x ? "true" : "false");}
 template<typename T, typename V>
 void __print(const pair<T, V> &x);
 template<typename T>
-void __print(const T &x) {int f = 0; cout << '{'; for (auto &i: x) cout << (f++ ? ", " : ""), __print(i); cout << "}";}
+void __print(const T &x) {int f = 0; cout << '{'; for (auto i: x) cout << (f++ ? ", " : ""), __print(i); cout << "}";}
+//template<typename T>
+//void __print(const T &x) {int f = 0; cout << '{'; for (auto &i: x) cout << (f++ ? ", " : ""), __print(i); cout << "}";}
 template<typename T, typename V>
 void __print(const pair<T, V> &x) {cout << '('; __print(x.first); cout << ", "; __print(x.second); cout << ')';}
 void _print() {cout << "\n";}
