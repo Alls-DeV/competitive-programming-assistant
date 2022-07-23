@@ -5,7 +5,7 @@ PURPLE='\033[1;35m'
 NC='\033[0m' # no color
 
 if [ "$1" == "h" ] ; then
-	echo -e "${PURPLE}validate.sh  wrong  validator  generator  numTests${NC}"
+	echo -e "${PURPLE}validate.sh  solution  validator  generator  numTests${NC}"
 	echo ""
 	echo -e "${RED}REMOVE //testcase"
 	echo "validator should return "OK" or the string that explain the error"
@@ -26,7 +26,7 @@ do
         cat input
         echo -e "${PURPLE}Output:${NC}"
         cat out
-        echo -e "${PURPLE}Validator Result:${NC}"
+        echo -e "${PURPLE}Validator result:${NC}"
         cat res 
         exit
     fi

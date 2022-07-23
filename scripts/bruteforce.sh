@@ -14,9 +14,10 @@ for ((testNum=0;testNum<$3;testNum++))
 do
 	echo -e "${RED}-----------------------------${NC}"
     ./$2 > input
+	echo -e "${PURPLE}Input:${NC}"
     cat input
+	echo -e "${PURPLE}Output:${NC}"
     ./$1 < input
-	
 done
 
 
