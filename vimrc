@@ -20,23 +20,27 @@ inoremap {<CR>  {<CR>}<Esc>O
 inoremap {}     {}
 "jk for escape 
 imap jk         <Esc>
-"ctrl-a to select all 
+"ctrl+a to select all 
 map <C-a> <esc>ggVG<CR>
 set belloff=all
-"add a single char in Nmode
+"add a single char in N-mode
 :nnoremap <Space> i_<Esc>r
 "tab
 nnoremap <Tab> >>
 vnoremap <Tab> >
 nnoremap <S-Tab> <<
 vnoremap <S-Tab> <
-"navigate with Ctrl+j/k
+"navigate with ctrl+j/k
 nnoremap <C-j> <C-e>
 nnoremap <C-k> <C-y>
-":q with Delete
-nnoremap <Del> :q<CR>
 "after compile remove errormarker
 nnoremap \\ <C-w>w:q<CR>:RemoveErrorMarkers<CR>
+"move in I-mode with ctrl+h/j/k/l
+inoremap <C-k> <C-o>gk
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+inoremap <C-j> <C-o>gj
+
 
 
 "Append template to new c++ files
@@ -54,8 +58,7 @@ autocmd filetype cpp nnoremap <F10> :!./%:r.exe<CR>
 noremap <F12> :w<CR>:!g++ -o %:r %:r.cpp<CR>
 
 
-
-let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
+let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat 
 execute pathogen#infect()
 
 " plugin
