@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-RED='\033[1;31m'
-PURPLE='\033[1;35m'
+RED='\033[0;35m'
+BLUE='\033[0;36m'
 NC='\033[0m' # no color
 
-if [ "$1" == "h" ] ; then
-	echo -e "${PURPLE}validate.sh  solution  validator  generator  numTests${NC}"
+if [ "$1" == "-h" ] ; then
+	echo -e "${RED}EXAMPLE"
+	echo "validate.sh  solution  validator  generator  numTests"
 	echo ""
-	echo -e "${RED}REMOVE //testcase"
+	echo -e "${BLUE}remove cin >> testcase"
 	echo "validator should return "OK" or the string that explain the error"
 	echo -e "validator first take in input the generator input and next the program output${NC}"
     exit 0
@@ -22,11 +23,11 @@ do
     if [ "${result:0:2}" != "OK" ];
     then
         echo -e "${RED}Error found!${NC}"
-        echo -e "${PURPLE}Input:${NC}"
+        echo -e "${BLUE}Input:${NC}"
         cat input
-        echo -e "${PURPLE}Output:${NC}"
+        echo -e "${BLUE}Output:${NC}"
         cat out
-        echo -e "${PURPLE}Validator result:${NC}"
+        echo -e "${BLUE}Validator result:${NC}"
         cat res 
         exit
     fi

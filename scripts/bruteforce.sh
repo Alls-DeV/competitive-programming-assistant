@@ -1,22 +1,23 @@
 #!/usr/bin/env bash
 
-RED='\033[1;31m'
-PURPLE='\033[1;35m'
+RED='\033[0;35m'
+BLUE='\033[0;36m'
 NC='\033[0m' # no color
 
-if [ "$1" == "h" ] ; then
-	echo -e "${PURPLE}bruteforce.sh  brute  generator  numTests${NC}"
+if [ "$1" == "-h" ] ; then
+	echo -e "${RED}EXAMPLE"
+	echo "bruteforce.sh  brute  generator  numTests"
 	echo ""
-	echo -e "${RED}REMOVE //testcase${NC}"
+	echo -e "${BLUE}remove cin >> testcase${NC}"
     exit 0
 fi
 for ((testNum=0;testNum<$3;testNum++))
 do
 	echo -e "${RED}-----------------------------${NC}"
     ./$2 > input
-	echo -e "${PURPLE}Input:${NC}"
+	echo -e "${BLUE}Input:${NC}"
     cat input
-	echo -e "${PURPLE}Output:${NC}"
+	echo -e "${BLUE}Output:${NC}"
     ./$1 < input
 done
 
