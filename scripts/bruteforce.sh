@@ -14,11 +14,11 @@ fi
 for ((testNum=0;testNum<$3;testNum++))
 do
 	echo -e "${RED}-----------------------------${NC}"
-    ./$2 > input
+    ./$2.exe > input
 	echo -e "${BLUE}Input:${NC}"
     cat input
 	echo -e "${BLUE}Output:${NC}"
-    ./$1 < input
+    ./$1.exe < input
 done
 
 

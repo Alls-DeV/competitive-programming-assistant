@@ -15,10 +15,10 @@ if [ "$1" == "-h" ] ; then
 fi
 for ((testNum=0;testNum<$4;testNum++))
 do
-    ./$3 > input
-    ./$1 < input > out
+    ./$3.exe > input
+    ./$1.exe < input > out
     cat input out > data
-    ./$2 < data > res
+    ./$2.exe < data > res
     result=$(cat res)
     if [ "${result:0:2}" != "OK" ];
     then

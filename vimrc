@@ -11,6 +11,8 @@ set statusline+=%F
 set clipboard=unnamedplus
 set mouse=a
 syntax on
+set noswapfile
+"colorscheme zellner 
 
 
 
@@ -33,7 +35,7 @@ vnoremap <S-Tab> <
 "navigate with ctrl+j/k
 nnoremap <C-j> <C-e>
 nnoremap <C-k> <C-y>
-"after compile remove errormarker
+"after compile remove errormarker and testcase
 nnoremap \\ <C-w>w:q<CR>:RemoveErrorMarkers<CR>
 "move in I-mode with ctrl+h/j/k/l
 inoremap <C-k> <C-o>gk
@@ -48,16 +50,35 @@ autocmd BufNewFile *.cpp 0r /home/alls/Library/Template.cpp
 
 
 
-"Compile and run
+"compile without -DALE
 set makeprg=build.sh\ %:r
 autocmd filetype cpp nnoremap <F8> :w <bar> Make <CR>
 autocmd filetype cpp inoremap <F8> <ESC> :w <bar> Make <CR>
-autocmd filetype cpp nnoremap <F9> :vertical terminal ++shell ++cols=60 ./%:r.exe<CR>
-autocmd filetype cpp nnoremap <F10> :!./%:r.exe<CR>
-"compile without .exe for stress test
-noremap <F12> :w<CR>:!g++ -o %:r %:r.cpp<CR>
+
+"test solution with testcase
+autocmd filetype cpp nnoremap <F9> :Test<CR>
+autocmd filetype cpp inoremap <F9> <ESC> :Test<CR>
+
+"debug one testcase
+autocmd filetype cpp nnoremap <F10> :Debug 
+autocmd filetype cpp inoremap <F10> <ESC> :Debug 
+
+"debug full screen terminal
+autocmd filetype cpp nnoremap <F11> :!./%:rdebug.exe<CR>
+autocmd filetype cpp inoremap <F11> <ESC> :!./%:rdebug.exe<CR>
+
+"submit the solution online
+autocmd filetype cpp nnoremap <F12> :Submit<CR>
+autocmd filetype cpp inoremap <F12> <ESC> :Submit<CR>
+
+"automate testing 
+call plug#begin()
+Plug 'searleser97/cpbooster.vim'
+call plug#end()
 
 
+
+"highlight errors
 let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat 
 execute pathogen#infect()
 
@@ -65,3 +86,4 @@ execute pathogen#infect()
 " https://github.com/tpope/vim-pathogen
 " https://github.com/tpope/vim-dispatch
 " https://github.com/vim-scripts/errormarker.vim
+" https://github.com/searleser97/cpbooster

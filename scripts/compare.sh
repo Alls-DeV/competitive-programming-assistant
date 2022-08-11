@@ -13,9 +13,9 @@ if [ "$1" == "-h" ] ; then
 fi
 for ((testNum=0;testNum<$4;testNum++))
 do
-    ./$3 > input
-    ./$2 < input > outSlow
-    ./$1 < input > outWrong
+    ./$3.exe > input
+    ./$2.exe < input > outSlow
+    ./$1.exe < input > outWrong
     H1=`md5sum outWrong`
     H2=`md5sum outSlow`
     if !(cmp -s "outWrong" "outSlow")

@@ -7,22 +7,16 @@
 #endif
  
 using namespace std;
-
-using vi = vector<int>; using vvi = vector<vi>;
-using ll = long long; using vll = vector<ll>; using vvll = vector<vll>;
-using pi = pair<int, int>; using vpi = vector<pi>;
-using pll = pair<ll, ll>; using vpll = vector<pll>;
+//#define int long long
+using ll = long long;
 
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define rFOR(i, a, b) for (int i = (a); i >= (b); --i)
  
-#define SZ(x) (int)(x).size()
+#define ssize(x) (int)(x).size()
 #define ALL(x) x.begin(), x.end()
-#define PB push_back
-#define MP make_pair
+#define rALL(x) x.rbegin(), x.rend()
 #define MU(x) {sort(ALL(x)); x.erase(unique(ALL(x)), x.end());}
-#define F first
-#define S second
 
 #define uid(a, b) uniform_int_distribution<int>(a, b)(rng) 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
@@ -42,10 +36,10 @@ int32_t main() {
     cin.tie(0)->sync_with_stdio(0);
 
     int t = 1;
-	cin >> t;//testcase
+	cin >> t;//remove if single testcase
     while (t--) {
         #ifdef ALE
-			cout << "\033[1;31m" << "------------------------------\n" << "\033[0m";
+			cout << "\033[48;5;196m\033[38;5;15m" << "                                     \n" << "\033[0m";
         #endif
         solve();
     }
