@@ -6,8 +6,7 @@
 #endif
 using namespace std;
 //#define int long long
-using ll = long long;
-using vi = vector<int>;
+using ll = long long; using vi = vector<int>;
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define rFOR(i, a, b) for (int i = (a); i >= (b); --i)
 #define ssize(x) (int)(x).size()
@@ -16,9 +15,7 @@ using vi = vector<int>;
 #define MU(x) {sort(ALL(x)); x.erase(unique(ALL(x)), x.end());}
 #define uid(a, b) uniform_int_distribution<int>(a, b)(rng) 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
 const int MOD = 1000000007;
-const long double eps = 5e-8;
 const char nl = '\n';
  
 ///////////////////////////////////////////////////////////////////////////
