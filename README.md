@@ -2,11 +2,11 @@
 My neovim and competitive programming setup.
 
 ---
-add
+add to .bashrc
 ```bash
 export PATH=$PATH:~/scripts/
+alias vim="nvim"
 ```
-to be able to run the scripts for stresstest a solution
 
 ---
 Library is copied from [this](https://github.com/cp-sapienza)
