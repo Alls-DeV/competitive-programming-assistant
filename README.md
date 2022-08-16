@@ -3,8 +3,6 @@ My neovim and competitive programming setup.
 
 add to .bashrc
 
-`export PATH=$PATH:~/scripts/`
-
 ```bash
 export PATH=$PATH:~/scripts/
 ```
