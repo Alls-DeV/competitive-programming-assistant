@@ -4,6 +4,10 @@ RED='\033[0;35m'
 BLUE='\033[0;36m'
 NC='\033[0m' # no color
 
+echo -e "${RED}build.sh"
+echo -e "${BLUE}compile c++ file with some flags"
+
+echo ""
 echo -e "${RED}bruteforce.sh"
 echo -e "${BLUE}generate some input and output of a solution"
 

@@ -12,7 +12,7 @@
   "languages": {
     "cpp": {
       "template": "/home/alls/Library/Template.cpp",
-      "command": "g++ -O2",
+      "command": "g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2",
       "debugCommand": "g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -DALE",
       "aliases": {
         "codeforces": "73",
