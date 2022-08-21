@@ -12,4 +12,13 @@ return require('packer').startup(function()
             run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
         }
         
+        -- LSP
+        use 'williamboman/nvim-lsp-installer'
+        use 'neovim/nvim-lspconfig'
+
+        -- Statusline
+        use {
+            'nvim-lualine/lualine.nvim',
+            requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+        }
 end)
