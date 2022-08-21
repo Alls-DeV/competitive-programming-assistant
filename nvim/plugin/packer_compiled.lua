@@ -69,6 +69,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    loaded = true,
+    path = "/home/alls/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
   ["cpbooster.vim"] = {
     loaded = true,
     path = "/home/alls/.local/share/nvim/site/pack/packer/start/cpbooster.vim",
@@ -78,6 +83,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/alls/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/home/alls/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
+    url = "https://github.com/windwp/nvim-autopairs"
   },
   ["nvim-lsp-installer"] = {
     loaded = true,
