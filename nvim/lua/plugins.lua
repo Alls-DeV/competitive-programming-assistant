@@ -21,4 +21,10 @@ return require('packer').startup(function()
             'nvim-lualine/lualine.nvim',
             requires = { 'kyazdani42/nvim-web-devicons', opt = true }
         }
+        
+        -- Autopairs
+        use 'windwp/nvim-autopairs'
+        
+        -- Comment
+        use 'numToStr/Comment.nvim'
 end)
