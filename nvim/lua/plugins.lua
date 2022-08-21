@@ -6,7 +6,7 @@ return require('packer').startup(function()
         -- Competitive programming automate setup
         use 'searleser97/cpbooster.vim'
         
-        -- Better highlight
+        -- Treesitter
         use {
             'nvim-treesitter/nvim-treesitter',
             run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
@@ -25,6 +25,6 @@ return require('packer').startup(function()
         -- Autopairs
         use 'windwp/nvim-autopairs'
         
-        -- Comment
+        -- Comments
         use 'numToStr/Comment.nvim'
 end)
