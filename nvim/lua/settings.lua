@@ -1,27 +1,24 @@
-local g = vim.g
 local o = vim.o
 local opt = vim.opt
+local g = vim.g
 
--- Better editor UI
+g.mapleader = " "
 o.number = true
-o.numberwidth = 2
 o.relativenumber = true
-
--- Better editing experience
 o.expandtab = true
 o.smarttab = true
 o.cindent = true
 o.autoindent = true
 o.tabstop = 4
 o.shiftwidth = 0
-o.softtabstop = -1 -- If negative, shiftwidth value is used
-
--- Makes neovim and host OS clipboard play nicely with each other
+o.softtabstop = -1
 o.clipboard = 'unnamedplus'
-
--- Case insensitive searching UNLESS /C or capital in search
-o.ignorecase = true
 o.smartcase = true
-
--- Enables mouse support
+o.incsearch = true
+o.hlsearch = false
+o.swapfile = false
+o.scrolloff = 3
+o.numberwidth = 4
+o.showmode = false
+o.signcolumn = 'yes'
 opt.mouse = "a"
