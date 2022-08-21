@@ -117,7 +117,7 @@ require('lualine').setup {
     lualine_c = {},
     lualine_x = {},
     lualine_y = { search_result, 'filetype' },
-    lualine_z = { '%l:%c', '%p%%/%L' },
+    lualine_z = {},
   },
   inactive_sections = {
     lualine_c = { '%f %y %m' },
