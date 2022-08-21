@@ -5,9 +5,6 @@ end
 -- jk for change mode
 map('i', 'jk', '<ESC>')
 
--- Remove highlighted words
-map('n', ';', ':noh<CR>')
-
 -- Quit neovim
 map('n', '<C-Q>', ':q<CR>')
 
@@ -21,6 +18,12 @@ map('x', '<C-k>', ":move '<-2<CR>gv=gv")
 -- e.g. dA = delete buffer ALL, yA = copy whole buffer ALL
 map('o', 'A', ':<C-U>normal! mzggVG<CR>`z')
 map('x', 'A', ':<C-U>normal! ggVG<CR>')
+
+-- Find and replace
+map('n', '<C-S>', ':%s/');
+
+-- File explorer 
+map('n', '<C-N>', ':Lexplore<CR>:vertical resize 30<CR>');
 
 -- cpbooster
     -- Test solution with testcase
