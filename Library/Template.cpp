@@ -12,9 +12,6 @@ using ll = long long; using vi = vector<int>;
 #define ssize(x) (int)(x).size()
 #define ALL(x) x.begin(), x.end()
 #define rALL(x) x.rbegin(), x.rend()
-#define MU(x) {sort(ALL(x)); x.erase(unique(ALL(x)), x.end());}
-#define uid(a, b) uniform_int_distribution<int>(a, b)(rng) 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 const int MOD = 1000000007;
 const char nl = '\n';
  
