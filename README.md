@@ -2,7 +2,7 @@
 My neovim and competitive programming setup.
 
 ---
-add to .bashrc
+append to .bashrc
 ```bash
 export PATH=$PATH:~/scripts/
 alias vim="nvim"
