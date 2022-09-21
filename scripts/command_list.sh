@@ -8,10 +8,6 @@ echo -e "${RED}build.sh"
 echo -e "${BLUE}compile c++ file with some flags"
 
 echo ""
-echo -e "${RED}bruteforce.sh"
-echo -e "${BLUE}generate some input and output of a solution"
-
-echo ""
 echo -e "${RED}compare.sh"
 echo -e "${BLUE}compare the outputs of two solutions of a problem, checking if they give the same outputs"
 
