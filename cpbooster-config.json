@@ -6,8 +6,8 @@
   "showStatusPageOnSubmit": true,
   "useUserDefaultBrowser": true,
   "preferredLang": "cpp",
-  "hideTestCaseInput": true,
-  "maxLinesToShowFromInput": 50,
+  "hideTestCaseInput": false,
+  "maxLinesToShowFromInput": 150,
   "cloneInCurrentDir": false,
   "languages": {
     "cpp": {
