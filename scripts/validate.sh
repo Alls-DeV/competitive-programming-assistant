@@ -4,6 +4,15 @@ RED='\033[0;35m'
 BLUE='\033[0;36m'
 NC='\033[0m' # no color
 
+function ProgressBar {
+    let _progress=(${1}*100/${2}*100)/100
+    let _done=(${_progress}*4)/10
+    let _left=40-$_done
+    _fill=$(printf "%${_done}s")
+    _empty=$(printf "%${_left}s")
+    printf "\rProgress : [${_fill// /#}${_empty// /-}] ${_progress}%%"
+}
+
 if [ "$1" == "-h" ] ; then
 	echo -e "${RED}EXAMPLE"
 	echo "validate.sh  solution  validator  generator  numTests"
@@ -15,6 +24,7 @@ if [ "$1" == "-h" ] ; then
 fi
 for ((testNum=0;testNum<$4;testNum++))
 do
+    ProgressBar ${testNum} ${4}
     ./$3.exe > input
     ./$1.exe < input > out
     cat input out > data
@@ -32,6 +42,7 @@ do
         exit
     fi
 done
+echo ""
 echo Passed $4 tests
 
 
