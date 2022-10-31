@@ -6,7 +6,6 @@ append to .bashrc
 ```bash
 export PATH=$PATH:~/scripts/
 alias vim="nvim"
-alias b="build.sh"
 ```
 
 ---
