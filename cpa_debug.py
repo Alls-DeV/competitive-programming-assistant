@@ -82,11 +82,11 @@ def debug(k = False, testcase = -1, A = False):
         print()
         #  do the same for the summary
         if passed == total:
-            print(f"{colors.GREEN}All testcases passed {colors.NC}🎉🎉🎉")
+            print(f"{colors.GREEN}All testcases passed {colors.NC}")
         elif total - passed == 1:
-            print(f"{colors.RED}{total - passed} testcase failed {colors.NC}😭😭😭")
+            print(f"{colors.RED}{total - passed} testcase failed {colors.NC}")
         else:
-            print(f"{colors.RED}{total - passed} testcases failed {colors.NC}😭😭😭")
+            print(f"{colors.RED}{total - passed} testcases failed {colors.NC}")
 
     else:
         testcase = str(testcase)
