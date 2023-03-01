@@ -11,9 +11,10 @@ class colors:
     
 class Parser:
     HOST = "127.0.0.1"
-    PORT = 1327 
-    CONTEST_PATH = "/home/alls/CompetitiveProgramming/"
-    TEMPLATE_PATH = "/home/alls/CompetitiveProgramming/Library/Template.cpp"
+    PORT = 1327
+    # CHANGE HERE THE PATH!!!
+    CONTEST_PATH = "~/"
+    TEMPLATE_PATH = ""
 
     def create(self, x : str, sem : Semaphore):
         try:
