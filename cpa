@@ -1,0 +1,94 @@
+#!/usr/bin/python3
+import sys
+import os
+
+import cpa_parse
+import cpa_submit
+import cpa_debug
+
+class colors:
+    RED   = "\033[0;31m"
+    GREEN = "\033[0;32m"
+    NC    = "\033[0m" # no color
+
+if __name__ == "__main__":
+
+    if len(sys.argv) == 1:
+        print("Unknown command, use cpa -h or cpa --help for help")
+    elif sys.argv[1] == "--help" or sys.argv[1] == "-h":
+        print("Usage: cpa [parse | submit | debug | comparator | validate]")
+        print("Usage: cpa [p | s | d | c | v]")
+        print("Use -h or --help with any of the above commands to get more info")
+    elif sys.argv[1] == "parse" or sys.argv[1] == "p":
+        if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
+            print("Usage: cpa parse or cpa p")
+            print("Parses problem or contest from the following websites:")
+            print("Codeforces, CodeChef, Kattis and Google Competitions")
+        else:
+            x = cpa_parse.Parser()
+            if not x.parse():
+                print(f"{colors.RED}Failed to parse{colors.NC}")
+    elif sys.argv[1] == "submit" or sys.argv[1] == "s":
+        if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
+            print("Usage: cpa submit [problem_name] or cpa s [problem_name]")
+            print("Submit a problem on codeforces")
+            print("If problem_name is not specified, it will submit the name of the directory you are using this command in (with the .cpp extension)")
+        else:
+            contest_path = os.getcwd()[:os.getcwd().rfind('/')]
+            if len(sys.argv) > 2:
+                problem_name = sys.argv[2]
+            else:
+                problem_name = os.getcwd()[os.getcwd().rfind('/') + 1:] + ".cpp"
+            languages = ("cpp", "cc", "cxx", "c++", "c", "py", "java", "rs")
+            if not problem_name.endswith(languages):
+                print(f"{colors.RED}Invalid file extension, please use one of the following: {languages}{colors.NC}")
+            else:
+                x = cpa_submit.Submitter(contest_path, problem_name)
+                x.submit()
+    elif sys.argv[1] == "debug" or sys.argv[1] == "d":
+        if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
+            print(f"{colors.GREEN}cpa debug{colors.NC}")
+            print("Compiles and runs the code on all the test cases, highlighting the differences")
+            print(f"{colors.GREEN}cpa debug N{colors.NC}")
+            print(f"If a number is specified, it will run only on the {colors.GREEN}N{colors.NC}-th test case")
+            print(f"{colors.GREEN}cpa debug -k{colors.NC}")
+            print(f"If {colors.GREEN}-k{colors.NC} is specified you will enter the test case input manually")
+            print("In the second and third way, the compilation will be executed with -D flag")
+            print(f"In the first way, if {colors.GREEN}-A{colors.NC} is specified will show the input and output too in success cases")
+            print(f"In the second way, if {colors.GREEN}-A{colors.NC} is specified will show the answer too")
+        else:
+            # case without flags or with only -A
+            if len(sys.argv) == 2 or (len(sys.argv) == 3 and sys.argv[2] == "-A"):
+                cpa_debug.debug(A = "-A" in sys.argv)
+            # case with -k
+            elif len(sys.argv) == 3 and sys.argv[2] == "-k":
+                cpa_debug.debug(k = True)
+            # case with number of test case
+            elif len(sys.argv) >= 3 and sys.argv[2].isdigit():
+                cpa_debug.debug(testcase = int(sys.argv[2]), A = "-A" in sys.argv)
+            # case with invalid argument
+            else:
+                print(f"{colors.RED}Invalid argument, use cpa debug -h for help{colors.NC}")
+    elif sys.argv[1] == "comparator" or sys.argv[1] == "c":
+        if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
+            print("Usage: cpa comparator solution1 solution2 generator numTests")
+            print("solution1, solution2 and generator are respectively the executables of the two solutions and of the testcases generator")
+            print("Compares the outputs of two solutions of a problem, checking if they give the same outputs")
+            print("Remove cin >> testcase")
+        elif len(sys.argv) != 6:
+            print(f"{colors.RED}Invalid number of arguments, use cpa comparator -h for help{colors.NC}")
+        else:
+            os.system("cpa_comparator" + " ".join(sys.argv[2:]))
+    elif sys.argv[1] == "validate" or sys.argv[1] == "v":
+        if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
+            print("Usage: cpa validate solution validator generator numTests")
+            print("solution, validator and generator are respectively the executables of the solution, validator of a solution and of the testcases generator")
+            print("validator should return the string 'OK' or the string that explains the error")
+            print("validator first take in input the generator input and next the program output")
+            print("Remove cin >> testcase")
+        elif len(sys.argv) != 6:
+            print(f"{colors.RED}Invalid number of arguments, use cpa validate -h for help{colors.NC}")
+        else:
+            os.system("cpa_validate" + " ".join(sys.argv[2:]))
+    else:
+        print("Unknown command, use cpa -h or cpa --help for help")
