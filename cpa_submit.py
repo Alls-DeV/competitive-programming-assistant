@@ -20,7 +20,7 @@ class Submitter:
         self.contest_path = contest_path
         self.problem_name = problem_name
         self.contest_number = contest_path.split('/')[-1][2:]
-        self.url_submission = "https://codeforces.com/contest/" + self.contest_number + "/my"
+        self.url_submission = "https://codeforces.com/problemset/submit"
     
     def login(self, s : requests.Session):
         URL_LOGIN = "https://codeforces.com/enter?back=%2F"
@@ -95,4 +95,4 @@ class Submitter:
                 return
         r = s.post(URL_SUBMIT, data = submit_data)
         print(f"{colors.GREEN}Submission successful{colors.NC}")
-        webbrowser.open(self.url_submission)
+        webbrowser.open("https://codeforces.com/contest/" + self.contest_number + "/my")
