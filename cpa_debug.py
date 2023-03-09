@@ -17,7 +17,7 @@ def debug(k = False, testcase = -1, A = False):
     print("Compiling...")
     
     if k or testcase != -1:
-        os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -DALE -o {folder} {folder}.cpp")
+        os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -DDEBUG -o {folder} {folder}.cpp")
     else:
         os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -o {folder} {folder}.cpp")
 
