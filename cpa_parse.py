@@ -35,6 +35,10 @@ class Parser:
                 tmp = url[url.find("contest") + 9: ]
                 contest_name = "kt" + tmp[:tmp.find('/')]
                 problem_name = dic["name"][dic["name"].find("Problem") + 8: dic["name"].find('-') - 1]
+            elif dic["group"][:7] == "AtCoder":
+                tmp = url[url.find("contests") + 9: ]
+                contest_name = "at" + tmp[:tmp.find('/')]
+                problem_name = dic["url"][-1]
             else:
                 print(f"{colors.RED}Unknown contest{colors.NC}")
                 return
@@ -53,7 +57,7 @@ class Parser:
                 os.mkdir(problem_name)
             else:
                 with sem:
-                    ans = input(problem_name + " folder already exists, do you want to overwrite it? (y/n)")
+                    ans = input(problem_name + " folder already exists, do you want to overwrite it? (y/n)\n")
                 Y = ('y', 'Y', "yes", "Yes", "YES")
                 if ans in Y:
                     subprocess.run(["rm", "-rf", problem_name])
