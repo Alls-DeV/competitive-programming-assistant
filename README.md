@@ -29,9 +29,10 @@ Run the following commands in the folder of the solution of the problem
 - [Install competitive companion](https://github.com/jmerle/competitive-companion#readme)
    in your browser.
 - Add this repository to your path.
-- in cpa_parse.py:
-   - add CONTEST_PATH in the Parser class, the contests will be parsed in CONTEST_PATH
-   - add TEMPLATE_PATH in the Parser class, cpa will paste the code inside TEMPLATE_PATH in the contests that cpa will parse
+- Make `cpa` executable using `chmod +x cpa`.
+- In cpa_parse.py:
+   - add CONTEST_PATH in the Parser class, the contests will be parsed in CONTEST_PATH.
+   - add TEMPLATE_PATH in the Parser class, cpa will paste the code inside TEMPLATE_PATH in the contests that cpa will parse.
 
 ## Supported Languages
 
