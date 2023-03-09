@@ -1,5 +1,6 @@
 import os
 import sys
+import threading as th
 
 class colors:
     RED   = "\033[0;31m"
@@ -16,21 +17,28 @@ def debug(k = False, testcase = -1, A = False):
     print("Compiling...")
     
     if k or testcase != -1:
-        os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -DDEBUG -o {folder} {folder}.cpp")
+        os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -DALE -o {folder} {folder}.cpp")
     else:
         os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -o {folder} {folder}.cpp")
 
     # check if the compilation is successful
     if not os.path.exists(folder):
         return
+
+    print(f"{colors.GREEN}Compilation successful{colors.NC}")
     
     if k:
         print("Enter your input manually, press ctrl+D to finish your input")
         print("\nInput")
         os.system("cat > tmp.txt")
         print("\nOutput")
-        os.system(f"./{folder} < tmp.txt")
-        os.system("rm tmp.txt")
+        t = th.Thread(target = lambda: os.system(f"./{folder} < tmp.txt"))
+        t.start()
+        t.join(5)
+        if t.is_alive():
+            print(f"{colors.RED}Time limit exceeded{colors.NC}")
+            os.system(f"killall {folder}")
+        os.system("rm -rf tmp.txt")
 
     elif testcase == -1:
         total = 0
@@ -45,7 +53,13 @@ def debug(k = False, testcase = -1, A = False):
             if not os.path.exists(inp):
                 break
             total += 1
-            os.system(f"./{folder} < {inp} > {out}")
+            TLE = False
+            t = th.Thread(target = lambda: os.system(f"./{folder} < {inp} > {out}"))
+            t.start()
+            t.join(5)
+            if t.is_alive():
+                TLE = True
+                os.system(f"killall {folder}")
 
             # check if the output is correct excluding white space and endline redirecting the diff output to a file
             os.system(f"diff -B -i -w {ans} {out} > diff.out")
@@ -60,8 +74,11 @@ def debug(k = False, testcase = -1, A = False):
                     os.system(f"cat {out}")
             else:
                 # for each line in $out and in $ans, if they are different, print out in $FAILURE color and ans in $SUCCESS color
-                print(f"\n{colors.RED}Testcase {testcase} failed{colors.NC}")
-                print("Input")
+                if TLE:
+                    print(f"\n{colors.RED}Testcase {testcase} failed (Time limit exceeded){colors.NC}")
+                else:
+                    print(f"\n{colors.RED}Testcase {testcase} failed{colors.NC}")
+                print("\nInput")
                 os.system(f"cat {inp}")
                 print("\nOutput")
                 # open out and ans and compare line by line, if they are different, print out in $RED color and ans in $GREEN color
@@ -80,6 +97,7 @@ def debug(k = False, testcase = -1, A = False):
                 ans.close()
 
         print()
+        os.system("rm -rf diff.out")
         #  do the same for the summary
         if passed == total:
             print(f"{colors.GREEN}All testcases passed {colors.NC}")
@@ -96,8 +114,14 @@ def debug(k = False, testcase = -1, A = False):
         if not os.path.exists(inp):
             print(f"{colors.RED}Testcase {testcase} does not exist{colors.NC}")
             return
-        os.system(f"./{folder} < {inp} > {out}")
-
+        t = th.Thread(target = lambda: os.system(f"./{folder} < {inp} > {out}"))
+        t.start()
+        t.join(5)
+        if t.is_alive():
+            print(f"{colors.RED}Time limit exceeded{colors.NC}")
+            os.system(f"killall {folder}")
+            os.system(f"rm -rf {out}")
+            return
         print("\nInput")
         os.system(f"cat {inp}")
         if A:
