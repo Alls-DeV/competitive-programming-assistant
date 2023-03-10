@@ -12,7 +12,6 @@ class colors:
     NC    = "\033[0m" # no color
 
 if __name__ == "__main__":
-
     if len(sys.argv) == 1:
         print("Unknown command, use cpa -h or cpa --help for help")
     elif sys.argv[1] == "--help" or sys.argv[1] == "-h":
@@ -47,25 +46,25 @@ if __name__ == "__main__":
                 x.submit()
     elif sys.argv[1] == "debug" or sys.argv[1] == "d":
         if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
-            print(f"{colors.GREEN}cpa debug{colors.NC}")
-            print("Compiles and runs the code on all the test cases, highlighting the differences")
+            print(f"{colors.GREEN}cpa debug{colors.NC} or {colors.GREEN}cpa d{colors.NC}")
+            print("Compiles and runs the code on all the test cases, highlighting the differences\n")
             print(f"{colors.GREEN}cpa debug N{colors.NC}")
             print(f"If a number is specified, it will run only on the {colors.GREEN}N{colors.NC}-th test case")
             print(f"{colors.GREEN}cpa debug -k{colors.NC}")
             print(f"If {colors.GREEN}-k{colors.NC} is specified you will enter the test case input manually")
-            print("In the second and third way, the compilation will be executed with -D flag")
-            print(f"In the first way, if {colors.GREEN}-A{colors.NC} is specified will show the input and output too in success cases")
-            print(f"In the second way, if {colors.GREEN}-A{colors.NC} is specified will show the answer too")
+            print(f"{colors.GREEN}cpa debug -D{colors.NC}")
+            print(f"If {colors.GREEN}-D{colors.NC} is specified you will compile the code with the -D flag")
+            print(f"You can combine {colors.GREEN}N{colors.NC} or {colors.GREEN}-k{colors.NC} with {colors.GREEN}-D{colors.NC}")
         else:
-            # case without flags or with only -A
-            if len(sys.argv) == 2 or (len(sys.argv) == 3 and sys.argv[2] == "-A"):
-                cpa_debug.debug(A = "-A" in sys.argv)
+            # case without flags or with only -D
+            if len(sys.argv) == 2 or (len(sys.argv) == 3 and sys.argv[2] == "-D"):
+                cpa_debug.debug(DEBUG = "-D" in sys.argv)
             # case with -k
             elif len(sys.argv) == 3 and sys.argv[2] == "-k":
                 cpa_debug.debug(k = True)
             # case with number of test case
             elif len(sys.argv) >= 3 and sys.argv[2].isdigit():
-                cpa_debug.debug(testcase = int(sys.argv[2]), A = "-A" in sys.argv)
+                cpa_debug.debug(testcase = int(sys.argv[2]), DEBUG = "-D" in sys.argv)
             # case with invalid argument
             else:
                 print(f"{colors.RED}Invalid argument, use cpa debug -h for help{colors.NC}")
