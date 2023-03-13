@@ -11,8 +11,10 @@ Run the following commands in the folder of the solution of the problem
 
 - Compile, run, test and debug
    - `cpa debug` compiles and runs the code on all the test cases, highlighting the differences
-   - `cpa debug N` it will run only on the N-th test case, with -D flag
-   - `cpa debug -k` to use keyboard as input, it will use the -D flag
+   - `cpa debug N` it will run only on the N-th test case
+   - `cpa debug -k` to use keyboard as input
+   - `cpa debug -D` it will compile the code with the -D flag
+   - You can combine N or -k with -D
 
 - Submit your code from the terminal
    - `cpa submit [problem_name]` submit a problem on codeforces, if problem_name is not specified, it will submit the name of the directory you are using this command in (with the .cpp extension)
