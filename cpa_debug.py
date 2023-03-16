@@ -20,24 +20,20 @@ def single_testcase(testcase, folder, inp, out, ans):
     # check if the output is correct excluding white space and endline redirecting the diff output to a file
     os.system(f"diff -B -i -w {ans} {out} > diff.out")
     if os.path.getsize("diff.out") == 0 and TLE == False:
-        print("---------------")
-        print("Input")
+        print("========== in ===========")
         os.system(f"cat {inp}")
-        print("---------------")
-        print("Output")
+        print("========== out ==========")
         os.system(f"cat {out}")
-        print("---------------")
+        print("=========================")
         print(f"{colors.GREEN}Passed!{colors.NC}")
         return 1
     else:
         # for each line in $out and in $ans, if they are different, print out in $FAILURE color and ans in $SUCCESS color
-        print("---------------")
-        print("Input")
+        print("========== in ===========")
         os.system(f"cat {inp}")
-        print("---------------")
-        print("Output")
+        print("========== out ==========")
         if TLE:
-            print("---------------")
+            print("=========================")
             print(f"{colors.RED}Failed! (Time limit exceeded){colors.NC}")
             return 0
         outFile = open(out, "r")
@@ -54,10 +50,9 @@ def single_testcase(testcase, folder, inp, out, ans):
         outFile.close()
         ansFile.close()
         print(out_new_text, end = "")
-        print("---------------")
-        print("Expected")
+        print("========== ans ==========")
         print(ans_new_test, end = "")
-        print("---------------")
+        print("=========================")
         print(f"{colors.RED}Failed!{colors.NC}")
         return 0
 
@@ -68,8 +63,8 @@ def debug(k = False, testcase = -1, DEBUG = False):
     if os.path.exists(folder):
         os.system(f"rm -rf {folder}")
     
-        os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -DDEBUG -o {folder} {folder}.cpp")
     if DEBUG:
+        os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -DDEBUG -o {folder} {folder}.cpp")
     else:
         os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -o {folder} {folder}.cpp")
 
@@ -79,15 +74,14 @@ def debug(k = False, testcase = -1, DEBUG = False):
     
     if k:
         print("Enter your input manually, press ctrl+D to finish your input")
-        print("---------------")
-        print("Input")
+        print("========== in ===========")
         os.system("cat > tmp.txt")
-        print("---------------")
-        print("Output")
+        print("========== out ==========")
         t = th.Thread(target = lambda: os.system(f"./{folder} < tmp.txt"))
         t.start()
         t.join(5)
         if t.is_alive():
+            print("=========================")
             print(f"{colors.RED}Failed! (Time limit exceeded){colors.NC}")
             os.system(f"killall {folder}")
         os.system("rm -rf tmp.txt")
