@@ -11,7 +11,7 @@ def single_testcase(testcase, folder, inp, out, ans):
     TLE = False
     t = th.Thread(target = lambda: os.system(f"./{folder} < {inp} > {out}"))
     t.start()
-    t.join(5)
+    t.join(50)
     if t.is_alive():
         TLE = True
         os.system(f"killall {folder}")

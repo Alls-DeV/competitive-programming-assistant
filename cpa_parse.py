@@ -89,6 +89,7 @@ class Parser:
             pass
 
     def parse(self):
+        print("ciao")
         flag = False
         sem = Semaphore(1)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
