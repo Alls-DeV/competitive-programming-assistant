@@ -6,15 +6,15 @@ class colors:
     GREEN = "\033[0;32m"
     NC    = "\033[0m" # no color
 
-def single_testcase(testcase, folder, inp, out, ans):
+def single_testcase(testcase, problem_name, inp, out, ans):
     print("Testcase", testcase)
     TLE = False
-    t = th.Thread(target = lambda: os.system(f"./{folder} < {inp} > {out}"))
+    t = th.Thread(target = lambda: os.system(f"./{problem_name} < {inp} > {out}"))
     t.start()
     t.join(50)
     if t.is_alive():
         TLE = True
-        os.system(f"killall {folder}")
+        os.system(f"killall {problem_name}")
 
     # check if the output is correct excluding white space and endline redirecting the diff output to a file
     os.system(f"diff -B -i -w {ans} {out} > diff.out")
@@ -65,12 +65,11 @@ def single_testcase(testcase, folder, inp, out, ans):
         print(f"{colors.RED}Failed!{colors.NC}")
         return 0
 
-def debug(k = False, testcase = -1, DEBUG = False):
-    folder = os.getcwd()[os.getcwd().rfind('/') + 1:]
-
+def debug(problem_name : str, k = False, testcase = -1, DEBUG = False):
+    print(problem_name, k, testcase, DEBUG)
     # remove the executable file if it exists
-    if os.path.exists(folder):
-        os.system(f"rm -rf {folder}")
+    if os.path.exists(problem_name):
+        os.system(f"rm -rf {problem_name}")
     
     if DEBUG:
         os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -DDEBUG -o {folder} {folder}.cpp")
@@ -78,7 +77,7 @@ def debug(k = False, testcase = -1, DEBUG = False):
         os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -o {folder} {folder}.cpp")
 
     # check if the compilation is successful
-    if not os.path.exists(folder):
+    if not os.path.exists(problem_name):
         return
     
     if k:
@@ -86,13 +85,13 @@ def debug(k = False, testcase = -1, DEBUG = False):
         print("========== in ===========")
         os.system("cat > tmp.txt")
         print("========== out ==========")
-        t = th.Thread(target = lambda: os.system(f"./{folder} < tmp.txt"))
+        t = th.Thread(target = lambda: os.system(f"./{problem_name} < tmp.txt"))
         t.start()
         t.join(5)
         if t.is_alive():
             print("=========================")
             print(f"{colors.RED}Failed! (Time limit exceeded){colors.NC}")
-            os.system(f"killall {folder}")
+            os.system(f"killall {problem_name}")
         os.system("rm -rf tmp.txt")
 
     elif testcase == -1:
@@ -102,13 +101,13 @@ def debug(k = False, testcase = -1, DEBUG = False):
         for testcase in range(0, 1000):
             # redirect the output to a file with the same ending number as the input
             testcase = str(testcase)
-            inp = f"{folder}.in{testcase}"
-            out = f"{folder}.out{testcase}"
-            ans = f"{folder}.ans{testcase}"
+            inp = f"{problem_name}.in{testcase}"
+            out = f"{problem_name}.out{testcase}"
+            ans = f"{problem_name}.ans{testcase}"
             if not os.path.exists(inp):
                 break
             total += 1
-            passed += single_testcase(testcase, folder, inp, out, ans)
+            passed += single_testcase(testcase, problem_name, inp, out, ans)
             print('\n')
 
         print()
@@ -121,10 +120,10 @@ def debug(k = False, testcase = -1, DEBUG = False):
 
     else:
         testcase = str(testcase)
-        inp = f"{folder}.in{testcase}"
-        out = f"{folder}.out{testcase}"
-        ans = f"{folder}.ans{testcase}"
+        inp = f"{problem_name}.in{testcase}"
+        out = f"{problem_name}.out{testcase}"
+        ans = f"{problem_name}.ans{testcase}"
         if not os.path.exists(inp):
             print(f"{colors.RED}Testcase {testcase} does not exist{colors.NC}")
             return
-        single_testcase(testcase, folder, inp, out, ans)
+        single_testcase(testcase, problem_name, inp, out, ans)

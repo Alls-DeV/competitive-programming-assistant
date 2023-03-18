@@ -16,7 +16,7 @@ class Parser:
     CONTEST_PATH = "~/"
     TEMPLATE_PATH = ""
 
-    def create(self, x : str, sem : Semaphore):
+    def create(self, x : str):
         try:
             dic = json.loads(x[x.find('{'):])
             url = dic["url"]
@@ -50,28 +50,16 @@ class Parser:
             if current_dir != contest_name:
                 if not os.path.isdir(full_path):
                     os.mkdir(full_path)
+                    print(f"{colors.GREEN}Created {contest_name} folder{colors.NC}")
                 os.chdir(full_path)
 
-            # create problem folder if it doesn't exist and move to it
-            if not os.path.isdir(problem_name):
-                os.mkdir(problem_name)
-            else:
-                with sem:
-                    ans = input(problem_name + " folder already exists, do you want to overwrite it? (y/n)\n")
-                Y = ('y', 'Y', "yes", "Yes", "YES")
-                if ans in Y:
-                    subprocess.run(["rm", "-rf", problem_name])
-                    os.mkdir(problem_name)
-                else:
-                    print(problem_name + " not parsed")
-                    return
-            os.chdir(os.path.join(full_path, problem_name))
-            
-            # create problem file with url of the problem
             with open(self.TEMPLATE_PATH, 'r') as f:
                 template = f.read()
-            with open(problem_name + self.TEMPLATE_PATH[self.TEMPLATE_PATH.rfind('.'):], 'w') as f:
-                f.write(template)
+
+            # if problem wasn't already parsed
+            if not os.path.isfile(problem_name + ".cpp"):
+                with open(problem_name + ".cpp", 'w') as f:
+                    f.write(template)
 
             # create input and answer files
             testcases = dic["tests"]
@@ -82,20 +70,17 @@ class Parser:
                     f_in.write(case["input"])
                 with open(file_output, 'w') as f_out:
                     f_out.write(case["output"])
-            with sem:
                 print(f"{colors.GREEN}Parsed problem " + problem_name + f"{colors.NC}")
             
         except:
             pass
 
     def parse(self):
-        print("ciao")
         flag = False
-        sem = Semaphore(1)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.HOST, self.PORT))
             print("Listening...")
-            timeout = 20
+            timeout = 60
             ok = True
             while ok:
                 try :
@@ -111,7 +96,7 @@ class Parser:
                                 break
                             else:
                                 flag = True
-                                t = Thread(target=self.create, args=(result, sem))
+                                t = Thread(target=self.create, args=(result,))
                                 t.start()
                 except :
                     ok = False
