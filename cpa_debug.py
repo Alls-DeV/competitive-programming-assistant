@@ -1,5 +1,4 @@
 import os
-import sys
 import threading as th
 
 class colors:
@@ -36,22 +35,32 @@ def single_testcase(testcase, folder, inp, out, ans):
             print("=========================")
             print(f"{colors.RED}Failed! (Time limit exceeded){colors.NC}")
             return 0
-        outFile = open(out, "r")
-        ansFile = open(ans, "r")
-        out_new_text = ""
-        ans_new_test = ""
-        for line_out, line_ans in zip(outFile, ansFile):
-            if line_out.strip() != line_ans.strip():
-                out_new_text += colors.RED + line_out + colors.NC
-                ans_new_test += colors.GREEN + line_ans + colors.NC
+        with open(out, "r") as f:
+            out_text = f.readlines()
+        with open(ans, "r") as f:
+            ans_text = f.readlines()
+        out_with_diff = ""
+        ans_with_diff = ""
+
+        for line_index in range(max(len(out_text), len(ans_text))):
+            if line_index >= len(out_text):
+                for line in ans_text[line_index:]:
+                    ans_with_diff += f"{colors.GREEN}{line}{colors.NC}"
+                break
+            if line_index >= len(ans_text):
+                for line in out_text[line_index:]:
+                    out_with_diff += f"{colors.RED}{line}{colors.NC}"
+                break
+            if out_text[line_index] != ans_text[line_index]:
+                out_with_diff += f"{colors.RED}{out_text[line_index]}{colors.NC}"
+                ans_with_diff += f"{colors.GREEN}{ans_text[line_index]}{colors.NC}"
             else:
-                out_new_text += line_out
-                ans_new_test += line_ans
-        outFile.close()
-        ansFile.close()
-        print(out_new_text, end = "")
-        print("========== ans ==========")
-        print(ans_new_test, end = "")
+                out_with_diff += out_text[line_index]
+                ans_with_diff += ans_text[line_index]
+
+        print(out_with_diff, end = "")
+        print("\n========== ans ==========")
+        print(ans_with_diff, end = "")
         print("=========================")
         print(f"{colors.RED}Failed!{colors.NC}")
         return 0
