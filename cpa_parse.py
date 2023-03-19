@@ -1,21 +1,11 @@
 import socket
 import json
 import os
-from threading import Thread, Semaphore
-import subprocess
+from threading import Thread
 
-class colors:
-    RED   = "\033[0;31m"
-    GREEN = "\033[0;32m"
-    NC    = "\033[0m" # no color
+import cpa_constants
     
 class Parser:
-    HOST = "127.0.0.1"
-    PORT = 1327
-    # CHANGE HERE THE PATH!!!
-    CONTEST_PATH = "~/"
-    TEMPLATE_PATH = ""
-
     def create(self, x : str):
         try:
             dic = json.loads(x[x.find('{'):])
@@ -40,20 +30,20 @@ class Parser:
                 contest_name = "at" + tmp[:tmp.find('/')]
                 problem_name = dic["url"][-1]
             else:
-                print(f"{colors.RED}Unknown contest{colors.NC}")
+                print(f"{cpa_constants.colors.RED}Unknown contest{cpa_constants.colors.NC}")
                 return
 
-            full_path = self.CONTEST_PATH + contest_name
+            full_path = cpa_constants.CONTEST_PATH + contest_name
             current_dir = os.path.basename(os.getcwd())
 
             # create contest folder if it doesn't exist and move to it
             if current_dir != contest_name:
                 if not os.path.isdir(full_path):
                     os.mkdir(full_path)
-                    print(f"{colors.GREEN}Created {contest_name} folder{colors.NC}")
+                    print(f"{cpa_constants.colors.GREEN}Created {contest_name} folder{cpa_constants.colors.NC}")
                 os.chdir(full_path)
 
-            with open(self.TEMPLATE_PATH, 'r') as f:
+            with open(cpa_constants.TEMPLATE_PATH, 'r') as f:
                 template = f.read()
 
             # if problem wasn't already parsed
@@ -70,7 +60,7 @@ class Parser:
                     f_in.write(case["input"])
                 with open(file_output, 'w') as f_out:
                     f_out.write(case["output"])
-                print(f"{colors.GREEN}Parsed problem " + problem_name + f"{colors.NC}")
+                print(f"{cpa_constants.colors.GREEN}Parsed problem " + problem_name + f"{cpa_constants.colors.NC}")
             
         except:
             pass
@@ -78,7 +68,7 @@ class Parser:
     def parse(self):
         flag = False
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.bind((self.HOST, self.PORT))
+            s.bind((cpa_constants.HOST, cpa_constants.PORT))
             print("Listening...")
             timeout = 60
             ok = True

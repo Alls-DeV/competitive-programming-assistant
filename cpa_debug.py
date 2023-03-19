@@ -1,17 +1,14 @@
 import os
 import threading as th
 
-class colors:
-    RED   = "\033[0;31m"
-    GREEN = "\033[0;32m"
-    NC    = "\033[0m" # no color
+import cpa_constants
 
 def single_testcase(testcase, problem_name, inp, out, ans):
     print("Testcase", testcase)
     TLE = False
     t = th.Thread(target = lambda: os.system(f"./{problem_name} < {inp} > {out}"))
     t.start()
-    t.join(50)
+    t.join(5)
     if t.is_alive():
         TLE = True
         os.system(f"killall {problem_name}")
@@ -24,7 +21,7 @@ def single_testcase(testcase, problem_name, inp, out, ans):
         print("========== out ==========")
         os.system(f"cat {out}")
         print("=========================")
-        print(f"{colors.GREEN}Passed!{colors.NC}")
+        print(f"{cpa_constants.colors.GREEN}Passed!{cpa_constants.colors.NC}")
         return 1
     else:
         # for each line in $out and in $ans, if they are different, print out in $FAILURE color and ans in $SUCCESS color
@@ -33,7 +30,7 @@ def single_testcase(testcase, problem_name, inp, out, ans):
         print("========== out ==========")
         if TLE:
             print("=========================")
-            print(f"{colors.RED}Failed! (Time limit exceeded){colors.NC}")
+            print(f"{cpa_constants.colors.RED}Failed! (Time limit exceeded){cpa_constants.colors.NC}")
             return 0
         with open(out, "r") as f:
             out_text = f.readlines()
@@ -45,15 +42,15 @@ def single_testcase(testcase, problem_name, inp, out, ans):
         for line_index in range(max(len(out_text), len(ans_text))):
             if line_index >= len(out_text):
                 for line in ans_text[line_index:]:
-                    ans_with_diff += f"{colors.GREEN}{line}{colors.NC}"
+                    ans_with_diff += f"{cpa_constants.colors.GREEN}{line}{cpa_constants.colors.NC}"
                 break
             if line_index >= len(ans_text):
                 for line in out_text[line_index:]:
-                    out_with_diff += f"{colors.RED}{line}{colors.NC}"
+                    out_with_diff += f"{cpa_constants.colors.RED}{line}{cpa_constants.colors.NC}"
                 break
             if out_text[line_index] != ans_text[line_index]:
-                out_with_diff += f"{colors.RED}{out_text[line_index]}{colors.NC}"
-                ans_with_diff += f"{colors.GREEN}{ans_text[line_index]}{colors.NC}"
+                out_with_diff += f"{cpa_constants.colors.RED}{out_text[line_index]}{cpa_constants.colors.NC}"
+                ans_with_diff += f"{cpa_constants.colors.GREEN}{ans_text[line_index]}{cpa_constants.colors.NC}"
             else:
                 out_with_diff += out_text[line_index]
                 ans_with_diff += ans_text[line_index]
@@ -62,19 +59,18 @@ def single_testcase(testcase, problem_name, inp, out, ans):
         print("\n========== ans ==========")
         print(ans_with_diff, end = "")
         print("=========================")
-        print(f"{colors.RED}Failed!{colors.NC}")
+        print(f"{cpa_constants.colors.RED}Failed!{cpa_constants.colors.NC}")
         return 0
 
 def debug(problem_name : str, k = False, testcase = -1, DEBUG = False):
-    print(problem_name, k, testcase, DEBUG)
     # remove the executable file if it exists
     if os.path.exists(problem_name):
         os.system(f"rm -rf {problem_name}")
     
     if DEBUG:
-        os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -DDEBUG -o {folder} {folder}.cpp")
+        os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 {cpa_constants.FLAGS} -o {problem_name} {problem_name}.cpp")
     else:
-        os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -o {folder} {folder}.cpp")
+        os.system(f"g++ -std=gnu++20 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -O2 -o {problem_name} {problem_name}.cpp")
 
     # check if the compilation is successful
     if not os.path.exists(problem_name):
@@ -90,7 +86,7 @@ def debug(problem_name : str, k = False, testcase = -1, DEBUG = False):
         t.join(5)
         if t.is_alive():
             print("=========================")
-            print(f"{colors.RED}Failed! (Time limit exceeded){colors.NC}")
+            print(f"{cpa_constants.colors.RED}Failed! (Time limit exceeded){cpa_constants.colors.NC}")
             os.system(f"killall {problem_name}")
         os.system("rm -rf tmp.txt")
 
@@ -113,10 +109,10 @@ def debug(problem_name : str, k = False, testcase = -1, DEBUG = False):
         print()
         os.system("rm -rf diff.out")
         if passed == total:
-            c = colors.GREEN
+            c = cpa_constants.colors.GREEN
         else:
-            c = colors.RED
-        print(f"{c}{passed} / {total} passed!{colors.NC}")
+            c = cpa_constants.colors.RED
+        print(f"{c}{passed} / {total} passed!{cpa_constants.colors.NC}")
 
     else:
         testcase = str(testcase)
@@ -124,6 +120,6 @@ def debug(problem_name : str, k = False, testcase = -1, DEBUG = False):
         out = f"{problem_name}.out{testcase}"
         ans = f"{problem_name}.ans{testcase}"
         if not os.path.exists(inp):
-            print(f"{colors.RED}Testcase {testcase} does not exist{colors.NC}")
+            print(f"{cpa_constants.colors.RED}Testcase {testcase} does not exist{cpa_constants.colors.NC}")
             return
         single_testcase(testcase, problem_name, inp, out, ans)
