@@ -115,7 +115,7 @@ if __name__ == "__main__":
         elif len(sys.argv) != 6:
             print(f"{cpa_constants.colors.RED}Invalid number of arguments, use cpa comparator -h for help{cpa_constants.colors.NC}")
         else:
-            os.system("cpa_comparator" + " ".join(sys.argv[2:]))
+            os.system("cpa_comparator " + " ".join(sys.argv[2:]))
     elif sys.argv[1] == "validate" or sys.argv[1] == "v":
         if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
             print("Usage: cpa validate solution validator generator numTests")
@@ -126,7 +126,7 @@ if __name__ == "__main__":
         elif len(sys.argv) != 6:
             print(f"{cpa_constants.colors.RED}Invalid number of arguments, use cpa validate -h for help{cpa_constants.colors.NC}")
         else:
-            os.system("cpa_validate" + " ".join(sys.argv[2:]))
+            os.system("cpa_validate " + " ".join(sys.argv[2:]))
     else:
         print("Unknown command")
         print("Usage: cpa parse | submit | debug | comparator | validate")
