@@ -48,7 +48,7 @@ def single_testcase(testcase, problem_name, inp, out, ans):
                 for line in out_text[line_index:]:
                     out_with_diff += f"{cpa_constants.colors.RED}{line}{cpa_constants.colors.NC}"
                 break
-            if out_text[line_index] != ans_text[line_index]:
+            if out_text[line_index].strip() != ans_text[line_index].strip():
                 out_with_diff += f"{cpa_constants.colors.RED}{out_text[line_index]}{cpa_constants.colors.NC}"
                 ans_with_diff += f"{cpa_constants.colors.GREEN}{ans_text[line_index]}{cpa_constants.colors.NC}"
             else:
