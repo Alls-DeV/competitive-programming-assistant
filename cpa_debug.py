@@ -77,18 +77,8 @@ def debug(problem_name : str, k = False, testcase = -1, DEBUG = False):
         return
     
     if k:
-        print("Enter your input manually, press ctrl+D to finish your input")
-        print("========== in ===========")
-        os.system("cat > tmp.txt")
-        print("========== out ==========")
-        t = th.Thread(target = lambda: os.system(f"./{problem_name} < tmp.txt"))
-        t.start()
-        t.join(5)
-        if t.is_alive():
-            print("=========================")
-            print(f"{cpa_constants.colors.RED}Failed! (Time limit exceeded){cpa_constants.colors.NC}")
-            os.system(f"killall {problem_name}")
-        os.system("rm -rf tmp.txt")
+        print("Enter your input manually")
+        os.system(f"./{problem_name}")
 
     elif testcase == -1:
         total = 0
