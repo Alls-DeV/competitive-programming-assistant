@@ -62,7 +62,7 @@ def single_testcase(testcase, problem_name, inp, out, ans):
         print(f"{cpa_constants.colors.RED}Failed!{cpa_constants.colors.NC}")
         return 0
 
-def debug(problem_name : str, k = False, testcase = -1, DEBUG = False):
+def debug(problem_name : str, testcase = -1, DEBUG = False):
     # remove the executable file if it exists
     if os.path.exists(problem_name):
         os.system(f"rm -rf {problem_name}")
@@ -76,11 +76,7 @@ def debug(problem_name : str, k = False, testcase = -1, DEBUG = False):
     if not os.path.exists(problem_name):
         return
     
-    if k:
-        print("Enter your input manually")
-        os.system(f"./{problem_name}")
-
-    elif testcase == -1:
+    if testcase == -1:
         total = 0
         passed = 0
 

@@ -7,13 +7,14 @@ import cpa_setup
 import cpa_parse
 import cpa_submit
 import cpa_debug
+import cpa_run
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
         print("Unknown command, use cpa -h or cpa --help for help")
     elif sys.argv[1] == "--help" or sys.argv[1] == "-h":
-        print("Usage: cpa parse | submit | debug | comparator | validate")
-        print("Usage: cpa p | s | d | c | v")
+        print("Usage: cpa parse | submit | debug | comparator | validate | run")
+        print("Usage: cpa p | s | d | c | v | r")
         print("Use -h or --help with any of the above commands to get more info")
     elif sys.argv[1] == "setup":
         if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
@@ -54,47 +55,40 @@ if __name__ == "__main__":
         if (len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help")) or len(sys.argv) > 5:
             print("Usage: cpa debug problem_name or cpa d problem_name")
             print("Compiles and runs the code on all the test cases, highlighting the differences\n")
-            print("Usage: cpa d problem_name [N | -k | -D]")
+            print("Usage: cpa d problem_name [N | -D]")
             print("If a number is specified, it will run only on the N-th test case")
-            print("If -k is specified you will enter the test case input manually")
             print("If -D is specified you will compile the code with the -D flag")
-            print("You can combine N or -k with -D")
+            print("You can combine N with -D")
         else:
             problem_name = sys.argv[2]
             if problem_name.isdigit():
                 print("Unknown command")
                 print("Usage: cpa debug problem_name or cpa d problem_name")
                 print("Compiles and runs the code on all the test cases, highlighting the differences\n")
-                print("Usage: cpa d problem_name [N | -k | -D]")
+                print("Usage: cpa d problem_name [N | -D]")
                 print("If a number is specified, it will run only on the N-th test case")
-                print("If -k is specified you will enter the test case input manually")
                 print("If -D is specified you will compile the code with the -D flag")
-                print("You can combine N or -k with -D")
+                print("You can combine N with -D")
                 exit()
             if len(sys.argv[3:]) == 0:
                 cpa_debug.debug(problem_name)
             elif len(sys.argv[3:]) == 1:
                 if sys.argv[3].isdigit():
                     cpa_debug.debug(problem_name, testcase = int(sys.argv[3]))
-                elif sys.argv[3] == "-k":
-                    cpa_debug.debug(problem_name, k = True)
                 elif sys.argv[3] == "-D":
                     cpa_debug.debug(problem_name, DEBUG = True)
                 else:
                     print("Unknown command")
                     print("Usage: cpa debug problem_name or cpa d problem_name")
                     print("Compiles and runs the code on all the test cases, highlighting the differences\n")
-                    print("Usage: cpa d problem_name [N | -k | -D]")
+                    print("Usage: cpa d problem_name [N | -D]")
                     print("If a number is specified, it will run only on the N-th test case")
-                    print("If -k is specified you will enter the test case input manually")
                     print("If -D is specified you will compile the code with the -D flag")
-                    print("You can combine N or -k with -D")
+                    print("You can combine N with -D")
                     exit()
             elif len(sys.argv[3:]) == 2:
                 s = set(sys.argv[3:])
-                if "-k" in s and "-D" in s:
-                    cpa_debug.debug(problem_name, k = True, DEBUG = True)
-                elif "-D" in s:
+                if "-D" in s:
                     cpa_debug.debug(problem_name, testcase = [int(x) for x in s if x.isdigit()][0], DEBUG = True)
                 else:
                     print("Unknown command")
@@ -127,6 +121,22 @@ if __name__ == "__main__":
             print(f"{cpa_constants.colors.RED}Invalid number of arguments, use cpa validate -h for help{cpa_constants.colors.NC}")
         else:
             os.system("cpa_validate " + " ".join(sys.argv[2:]))
+    elif sys.argv[1] == "run" or sys.argv[1] == "r":
+        if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
+            print("Usage: cpa run problema_name or cpa r problema_name")
+            print("Compiles and runs the code using the keyboard as input")
+            print("Usage: cpa r problem_name -D")
+            print("Compiles and runs the code using the keyboard as input with the -D flag")
+        elif len(sys.argv) == 3:
+            cpa_run.run(sys.argv[2])
+        elif len(sys.argv) == 4 and sys.argv[3] == "-D":
+            cpa_run.run(sys.argv[2], DEBUG = True)
+        else:
+            print("Unknown command")
+            print("Usage: cpa run problema_name or cpa r problema_name")
+            print("Compiles and runs the code using the keyboard as input")
+            print("Usage: cpa r problem_name -D")
+            print("Compiles and runs the code using the keyboard as input with the -D flag")
     else:
         print("Unknown command")
         print("Usage: cpa parse | submit | debug | comparator | validate")
