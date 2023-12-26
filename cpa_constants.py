@@ -5,7 +5,8 @@ class colors:
 
 HOST = "127.0.0.1"
 PORT = 1327
-FLAGS = ""
-CONTEST_PATH = "/home/"
-TEMPLATE_PATH = None
-EDITOR = None
+FLAGS = "-DALE"
+CONTEST_PATH = "/home/alls/CompetitiveProgramming/"
+TEMPLATE_PATH = "/home/alls/CompetitiveProgramming/Library/Template.cpp"
+# EDITOR = "code"
+EDITOR = "nvim"

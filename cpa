@@ -5,7 +5,6 @@ import os
 import cpa_constants
 import cpa_setup
 import cpa_parse
-import cpa_submit
 import cpa_debug
 import cpa_run
 
@@ -13,16 +12,18 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:
         print("Unknown command, use cpa -h or cpa --help for help")
     elif sys.argv[1] == "--help" or sys.argv[1] == "-h":
-        print("Usage: cpa parse | submit | debug | comparator | validate | run")
-        print("Usage: cpa p | s | d | c | v | r")
+        print("Usage: cpa parse | debug | comparator | validate | run")
+        print("Usage: cpa p | d | c | v | r")
         print("Use -h or --help with any of the above commands to get more info")
     elif sys.argv[1] == "setup":
         if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
-            print("Usage: cpa setup contest_name problem_name1 problem_name2 ...")
+            print("Usage: cpa setup contest_name [-F] problem_name1 problem_name2 ...")
             print("Creates a folder with the name of the contest and creates a file for each problem in the list")
+            print("If -F is specified, it will create a folder for each problem")
         elif len(sys.argv) < 4:
-            print("Usage: cpa setup [contest_name] [problem_name1] [problem_name2] ...")
+            print("Usage: cpa setup contest_name [-F] problem_name1 problem_name2 ...")
             print("Creates a folder with the name of the contest and creates a file for each problem in the list")
+            print("If -F is specified, it will create a folder for each problem")
         else:
             cpa_setup.setup(sys.argv[2], sys.argv[3:])
     elif sys.argv[1] == "parse" or sys.argv[1] == "p":
@@ -34,23 +35,6 @@ if __name__ == "__main__":
             x = cpa_parse.Parser()
             if not x.parse():
                 print(f"{cpa_constants.colors.RED}Failed to parse{cpa_constants.colors.NC}")
-    elif sys.argv[1] == "submit" or sys.argv[1] == "s":
-        if len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help"):
-            print("Usage: cpa submit problem_name or cpa s problem_name")
-            print("Submit a problem on codeforces")
-            print("If problem_name is not specified, it will submit the name of the directory you are using this command in (with the .cpp extension)")
-        else:
-            contest_path = os.getcwd()[:os.getcwd().rfind('/')]
-            if len(sys.argv) > 2:
-                problem_name = sys.argv[2]
-            else:
-                problem_name = os.getcwd()[os.getcwd().rfind('/') + 1:] + ".cpp"
-            languages = ("cpp", "cc", "cxx", "c++", "c", "py", "java", "rs")
-            if not problem_name.endswith(languages):
-                print(f"{cpa_constants.colors.RED}Invalid file extension, please use one of the following: {languages}{cpa_constants.colors.NC}")
-            else:
-                x = cpa_submit.Submitter(contest_path, problem_name)
-                x.submit()
     elif sys.argv[1] == "debug" or sys.argv[1] == "d":
         if (len(sys.argv) > 2 and (sys.argv[2] == "-h" or sys.argv[2] == "--help")) or len(sys.argv) > 5:
             print("Usage: cpa debug problem_name or cpa d problem_name")
@@ -139,6 +123,6 @@ if __name__ == "__main__":
             print("Compiles and runs the code using the keyboard as input with the -D flag")
     else:
         print("Unknown command")
-        print("Usage: cpa parse | submit | debug | comparator | validate")
-        print("Usage: cpa p | s | d | c | v")
+        print("Usage: cpa parse | debug | comparator | validate | run")
+        print("Usage: cpa p | d | c | v | r")
         print("Use -h or --help with any of the above commands to get more info")

@@ -1,7 +1,7 @@
 import socket
 import json
 import os
-from threading import Thread
+import threading
 
 import cpa_constants
     
@@ -10,7 +10,6 @@ class Parser:
         try:
             dic = json.loads(x[x.find('{'):])
             url = dic["url"]
-
             if dic["group"][:10] == "Codeforces":
                 tmp = url[url.find("contest") + 8: ]
                 contest_name = "cf" + tmp[:tmp.find('/')]
@@ -60,7 +59,7 @@ class Parser:
                     f_in.write(case["input"])
                 with open(file_output, 'w') as f_out:
                     f_out.write(case["output"])
-                print(f"{cpa_constants.colors.GREEN}Parsed problem " + problem_name + f"{cpa_constants.colors.NC}")
+            print(f"{cpa_constants.colors.GREEN}Parsed problem " + problem_name + f"{cpa_constants.colors.NC}")
             
         except:
             pass
@@ -68,6 +67,7 @@ class Parser:
     def parse(self):
         flag = False
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             s.bind((cpa_constants.HOST, cpa_constants.PORT))
             print("Listening...")
             timeout = 60
@@ -81,12 +81,11 @@ class Parser:
                     with conn:
                         while True:
                             data = conn.recv(4096)
-                            result = (data.decode("utf-8"))
                             if not data:
                                 break
                             else:
                                 flag = True
-                                t = Thread(target=self.create, args=(result,))
+                                t = threading.Thread(target=self.create, args=(data.decode("utf-8"),))
                                 t.start()
                 except :
                     ok = False

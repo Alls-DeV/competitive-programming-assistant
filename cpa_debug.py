@@ -87,12 +87,11 @@ def debug(problem_name : str, testcase = -1, DEBUG = False):
             out = f"{problem_name}.out{testcase}"
             ans = f"{problem_name}.ans{testcase}"
             if not os.path.exists(inp):
-                break
+                continue
             total += 1
             passed += single_testcase(testcase, problem_name, inp, out, ans)
             print('\n')
 
-        print()
         os.system("rm -rf diff.out")
         if passed == total:
             c = cpa_constants.colors.GREEN
