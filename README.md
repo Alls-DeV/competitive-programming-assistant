@@ -16,9 +16,6 @@ Run the following commands in the folder of the solution of the problem
    - `cpa debug -D` it will compile the code with the -D flag
    - You can combine N or -k with -D
 
-- Submit your code from the terminal
-   - `cpa submit [problem_name]` submit a problem on codeforces, if problem_name is not specified, it will submit the name of the directory you are using this command in (with the .cpp extension)
-   
 - Stresstest against a bruteforce solution
    - `cpa comparator solution1 solution2 generator numTests` solution1, solution2 and generator are respectively the executables of the two solutions and of the testcases generator. Compares the outputs of two solutions of a problem, checking if they give the same outputs
 
